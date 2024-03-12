@@ -16,7 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class ControllerTest implements CommonTest {
+public class ControllerTest implements TodosTest {
     @Autowired
     private WebApplicationContext context;
 

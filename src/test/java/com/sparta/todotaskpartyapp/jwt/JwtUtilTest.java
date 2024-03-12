@@ -4,10 +4,8 @@ import static com.sparta.todotaskpartyapp.jwt.JwtUtil.BEARER_PREFIX;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import com.sparta.todotaskpartyapp.entity.Todo;
-import com.sparta.todotaskpartyapp.entity.User;
 import com.sparta.todotaskpartyapp.entity.UserRole;
-import com.sparta.todotaskpartyapp.test.CommonTest;
+import com.sparta.todotaskpartyapp.test.TodosTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -20,11 +18,9 @@ import org.springframework.test.context.ActiveProfiles;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.time.LocalDateTime;
-
 @SpringBootTest
 @ActiveProfiles("test")
-class JwtUtilTest implements CommonTest {
+class JwtUtilTest implements TodosTest {
 
     @Autowired
     JwtUtil jwtUtil;

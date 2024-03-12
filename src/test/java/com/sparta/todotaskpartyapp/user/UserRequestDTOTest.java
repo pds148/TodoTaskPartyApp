@@ -2,7 +2,7 @@ package com.sparta.todotaskpartyapp.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import com.sparta.todotaskpartyapp.dto.request.UserRequestDTO;
-import com.sparta.todotaskpartyapp.test.CommonTest;
+import com.sparta.todotaskpartyapp.test.TodosTest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -14,9 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UserRequestDTOTest implements CommonTest {
+class UserRequestDTOTest implements TodosTest {
 
     @DisplayName("유저 요청 DTO 생성")
     @Nested
