@@ -4,10 +4,7 @@ import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.Todo;
 
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public interface TodoTest extends CommonTest {
+public interface TodoTest extends TodosTest {
 
     Long TEST_TODO_ID = 1L;
     String TEST_TODO_TITLE = "title";
