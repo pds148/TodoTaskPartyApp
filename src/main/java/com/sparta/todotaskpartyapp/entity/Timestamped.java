@@ -1,6 +1,5 @@
 package com.sparta.todotaskpartyapp.entity;
 
-import com.sparta.todotaskpartyapp.dto.request.UserDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
