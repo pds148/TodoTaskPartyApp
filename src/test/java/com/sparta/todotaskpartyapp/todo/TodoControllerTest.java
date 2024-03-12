@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
 
 import com.sparta.todotaskpartyapp.controller.TodoController;
@@ -15,7 +14,7 @@ import com.sparta.todotaskpartyapp.dto.request.UserDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.User;
-import com.sparta.todotaskpartyapp.service.TodoService;
+import com.sparta.todotaskpartyapp.service.TodoServiceImpl;
 import com.sparta.todotaskpartyapp.test.ControllerTest;
 import com.sparta.todotaskpartyapp.test.TodoTest;
 import com.sparta.todotaskpartyapp.test.TodoTestUtils;
@@ -23,18 +22,15 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @WebMvcTest(TodoController.class)
 class TodoControllerTest extends ControllerTest implements TodoTest {
 
     @MockBean
-    private TodoService todoService;
+    private TodoServiceImpl todoService;
 
     @DisplayName("할일 생성 요청")
     @Test

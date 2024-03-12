@@ -4,7 +4,7 @@ import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.security.UserDetailsImpl;
-import com.sparta.todotaskpartyapp.service.TodoService;
+import com.sparta.todotaskpartyapp.service.TodoServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/todos")
 @AllArgsConstructor
+@RestControllerAdvice
 public class TodoController {
 
-    private final TodoService todoService;
+    private final TodoServiceImpl todoService;
 
     @PostMapping
     public ResponseEntity<TodoResponseDTO> addTodo(
@@ -30,12 +31,8 @@ public class TodoController {
 
     @GetMapping("/{todoId}")
     public ResponseEntity<TodoResponseDTO> getTodoDetails(@PathVariable Long todoId) {
-        try {
-            TodoResponseDTO responseDTO = todoService.getTodoDetails(todoId);
-            return ResponseEntity.ok().body(responseDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        TodoResponseDTO responseDTO = todoService.getTodoDetails(todoId);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @GetMapping
@@ -49,36 +46,33 @@ public class TodoController {
             @PathVariable Long todoId,
             @RequestBody TodoRequestDTO todoRequestDTO,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            TodoResponseDTO responseDTO = todoService.updateTodo(todoId, todoRequestDTO, userDetails.getUser());
-            return ResponseEntity.ok(responseDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        TodoResponseDTO responseDTO = todoService.updateTodo(todoId, todoRequestDTO, userDetails.getUser());
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PatchMapping("/{todoId}/complete")
     public ResponseEntity<TodoResponseDTO> completeTodo(
             @PathVariable Long todoId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            TodoResponseDTO responseDTO = todoService.completeTodo(todoId, userDetails.getUser());
-            return ResponseEntity.ok(responseDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        TodoResponseDTO responseDTO = todoService.completeTodo(todoId, userDetails.getUser());
+        return ResponseEntity.ok(responseDTO);
     }
 
     @DeleteMapping("/{todoId}")
     public ResponseEntity<TodoResponseDTO> deleteTodo(
             @PathVariable Long todoId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            todoService.deleteTodo(todoId, userDetails.getUser());
-            return ResponseEntity.ok().body(new TodoResponseDTO("할일이 삭제되었습니다.", HttpStatus.OK.value()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        todoService.deleteTodo(todoId, userDetails.getUser());
+        return ResponseEntity.ok().body(new TodoResponseDTO("할일이 삭제되었습니다.", HttpStatus.OK.value()));
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity<TodoResponseDTO> handleIllegalArgumentException(IllegalArgumentException e) {
+        TodoResponseDTO responseDTO = new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(
+                responseDTO,
+                HttpStatus.BAD_REQUEST
+        );
     }
 }
 

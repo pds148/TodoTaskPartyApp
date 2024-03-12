@@ -11,12 +11,11 @@ import java.util.concurrent.RejectedExecutionException;
 
 
 import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
-import com.sparta.todotaskpartyapp.dto.request.UserDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.Todo;
 import com.sparta.todotaskpartyapp.entity.User;
 import com.sparta.todotaskpartyapp.repository.TodoRepository;
-import com.sparta.todotaskpartyapp.service.TodoService;
+import com.sparta.todotaskpartyapp.service.TodoServiceImpl;
 import com.sparta.todotaskpartyapp.test.TodoTest;
 import com.sparta.todotaskpartyapp.test.TodoTestUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +33,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 class TodoServiceTest implements TodoTest {
 
     @InjectMocks
-    TodoService todoService;
+    TodoServiceImpl todoService;
 
     @Mock
     TodoRepository todoRepository;
