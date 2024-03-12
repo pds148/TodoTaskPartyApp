@@ -70,14 +70,14 @@ public class TodoController {
     }
 
     @DeleteMapping("/{todoId}")
-    public ResponseEntity<String> deleteTodo(
+    public ResponseEntity<TodoResponseDTO> deleteTodo(
             @PathVariable Long todoId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         try {
             todoService.deleteTodo(todoId, userDetails.getUser());
-            return ResponseEntity.ok("할일이 삭제되었습니다.");
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            return ResponseEntity.ok().body(new TodoResponseDTO("할일이 삭제되었습니다.", HttpStatus.OK.value()));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 }
