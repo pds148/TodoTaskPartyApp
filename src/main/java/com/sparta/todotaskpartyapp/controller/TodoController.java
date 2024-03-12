@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/todos")
 @AllArgsConstructor
@@ -26,23 +25,23 @@ public class TodoController {
             @RequestBody TodoRequestDTO todoRequestDTO,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         TodoResponseDTO todoResponseDTO = todoService.createTodo(todoRequestDTO, userDetails.getUser());
-        return createResponseEntity(todoResponseDTO, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(todoResponseDTO);
     }
 
     @GetMapping("/{todoId}")
     public ResponseEntity<TodoResponseDTO> getTodoDetails(@PathVariable Long todoId) {
         try {
             TodoResponseDTO responseDTO = todoService.getTodoDetails(todoId);
-            return ResponseEntity.ok(responseDTO);
+            return ResponseEntity.ok().body(responseDTO);
         } catch (IllegalArgumentException e) {
-            return createBadRequestResponseEntity(e.getMessage());
+            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 
     @GetMapping
     public ResponseEntity<List<TodoListResponseDTO>> getUserTodoList() {
         List<TodoListResponseDTO> response = todoService.getUserTodoList();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok().body(response);
     }
 
     @PutMapping("/{todoId}")
@@ -53,8 +52,8 @@ public class TodoController {
         try {
             TodoResponseDTO responseDTO = todoService.updateTodo(todoId, todoRequestDTO, userDetails.getUser());
             return ResponseEntity.ok(responseDTO);
-        } catch (IllegalArgumentException ex) {
-            return createBadRequestResponseEntity(ex.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 
@@ -65,8 +64,8 @@ public class TodoController {
         try {
             TodoResponseDTO responseDTO = todoService.completeTodo(todoId, userDetails.getUser());
             return ResponseEntity.ok(responseDTO);
-        } catch (IllegalArgumentException ex) {
-            return createBadRequestResponseEntity(ex.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
     }
 
@@ -80,14 +79,6 @@ public class TodoController {
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
-    }
-
-    private ResponseEntity<TodoResponseDTO> createResponseEntity(TodoResponseDTO body, HttpStatus status) {
-        return ResponseEntity.status(status).body(body);
-    }
-
-    private ResponseEntity<TodoResponseDTO> createBadRequestResponseEntity(String message) {
-        return ResponseEntity.badRequest().body(new TodoResponseDTO(message, HttpStatus.BAD_REQUEST.value()));
     }
 }
 
