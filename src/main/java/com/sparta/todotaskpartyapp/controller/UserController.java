@@ -3,6 +3,7 @@ package com.sparta.todotaskpartyapp.controller;
 import com.sparta.todotaskpartyapp.dto.request.LoginRequestDTO;
 import com.sparta.todotaskpartyapp.dto.request.SignupRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodosResponseDTO;
+import com.sparta.todotaskpartyapp.entity.User;
 import com.sparta.todotaskpartyapp.entity.UserRole;
 import com.sparta.todotaskpartyapp.jwt.JwtUtil;
 import com.sparta.todotaskpartyapp.service.UserService;
