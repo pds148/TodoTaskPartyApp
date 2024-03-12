@@ -1,6 +1,7 @@
 package com.sparta.todotaskpartyapp.service;
 
 import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
+import com.sparta.todotaskpartyapp.dto.request.UserRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.Todo;
@@ -35,8 +36,8 @@ public class TodoServiceImpl implements TodoService {
 
     public List<TodoListResponseDTO> getUserTodoList() {
         List<Todo> todoList = todoRepository.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
-        Map<UsersRequestDTO, List<TodoResponseDTO>> userTodoMap = todoList.stream()
-                .collect(Collectors.groupingBy(todo -> new UsersRequestDTO(todo.getUser()),
+        Map<UserRequestDTO, List<TodoResponseDTO>> userTodoMap = todoList.stream()
+                .collect(Collectors.groupingBy(todo -> new UserRequestDTO(todo.getUser()),
                         Collectors.mapping(TodoResponseDTO::new, Collectors.toList())));
 
         return userTodoMap.entrySet().stream()

@@ -10,6 +10,7 @@ import java.util.concurrent.RejectedExecutionException;
 
 import com.sparta.todotaskpartyapp.controller.TodoController;
 import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
+import com.sparta.todotaskpartyapp.dto.request.UserRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.User;
@@ -93,9 +94,9 @@ class TodoControllerTest extends ControllerTest implements TodoTest {
         var testAnotherTodo = TodoTestUtils.get(TEST_TODO, 3L, LocalDateTime.now(), TEST_ANOTHER_USER);
 
         given(todoService.getUserTodoList()).willReturn(
-                List.of(new TodoListResponseDTO(new UsersRequestDTO(TEST_USER),
+                List.of(new TodoListResponseDTO(new UserRequestDTO(TEST_USER),
                                 List.of(new TodoResponseDTO(testTodo1), new TodoResponseDTO(testTodo2))),
-                        new TodoListResponseDTO(new UsersRequestDTO(TEST_ANOTHER_USER),
+                        new TodoListResponseDTO(new UserRequestDTO(TEST_ANOTHER_USER),
                                 List.of(new TodoResponseDTO(testAnotherTodo)))));
 
         // when

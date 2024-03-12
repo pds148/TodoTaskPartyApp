@@ -23,7 +23,7 @@ class UserRequestDTOTest implements TodosTest {
         @Test
         void createUserRequestDTO_success() {
             // given
-            UserRequestDTO userRequestDTO = new UserRequestDTO();
+            UserRequestDTO userRequestDTO = new UserRequestDTO(TEST_USER_ID);
             userRequestDTO.setUsername(TEST_USER_NAME);
             userRequestDTO.setPassword(TEST_USER_PASSWORD);
 
@@ -39,8 +39,8 @@ class UserRequestDTOTest implements TodosTest {
         @Test
         void createUserRequestDTO_fail_wrongUserName() {
             // given
-            UserRequestDTO userRequestDTO = new UserRequestDTO();
-            userRequestDTO.setUsername("Invalid user name"); // Invalid username pattern
+            UserRequestDTO userRequestDTO = new UserRequestDTO(TEST_USER_ID);
+            userRequestDTO.setUsername(TEST_USER_NAME); // Invalid username pattern
             userRequestDTO.setPassword(TEST_USER_PASSWORD);     // Invalid password pattern
 
             // when
@@ -57,9 +57,9 @@ class UserRequestDTOTest implements TodosTest {
         @DisplayName("유저 요청 DTO 생성 실패 - 잘못된 password")
         @Test
         void createUserRequestDTO_wrongPassword() {
-            UserRequestDTO userRequestDTO = new UserRequestDTO();
+            UserRequestDTO userRequestDTO = new UserRequestDTO(TEST_USER_ID);
             userRequestDTO.setUsername(TEST_USER_NAME); // Invalid username pattern
-            userRequestDTO.setPassword("Invalid password");     // Invalid password pattern
+            userRequestDTO.setPassword(TEST_USER_PASSWORD);     // Invalid password pattern
 
             // when
             Set<ConstraintViolation<UserRequestDTO>> violations = validate(userRequestDTO);
@@ -77,6 +77,4 @@ class UserRequestDTOTest implements TodosTest {
         Validator validator = factory.getValidator();
         return validator.validate(userRequestDTO);
     }
-
-
 }
