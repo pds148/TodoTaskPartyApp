@@ -65,11 +65,5 @@ public class TodoController {
         todoService.deleteTodo(todoId, userDetails.getUser());
         return ResponseEntity.ok().body(new TodoResponseDTO("할일이 삭제되었습니다.", HttpStatus.OK.value()));
     }
-
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodoResponseDTO> handleTodoIllegalArgumentException(IllegalArgumentException e) {
-        TodoResponseDTO responseDTO = new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
-    }
 }
 

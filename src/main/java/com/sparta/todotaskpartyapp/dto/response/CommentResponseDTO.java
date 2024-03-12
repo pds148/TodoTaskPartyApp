@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class CommentResponseDTO extends TodosResponseDTO {
+public class CommentResponseDTO extends TodoTaskResponseDTO {
 
     private Long id;
     private String commentContent;

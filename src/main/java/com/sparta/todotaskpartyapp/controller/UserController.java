@@ -2,7 +2,7 @@ package com.sparta.todotaskpartyapp.controller;
 
 import com.sparta.todotaskpartyapp.dto.request.LoginRequestDTO;
 import com.sparta.todotaskpartyapp.dto.request.SignupRequestDTO;
-import com.sparta.todotaskpartyapp.dto.response.TodosResponseDTO;
+import com.sparta.todotaskpartyapp.dto.response.TodoTaskResponseDTO;
 import com.sparta.todotaskpartyapp.entity.User;
 import com.sparta.todotaskpartyapp.entity.UserRole;
 import com.sparta.todotaskpartyapp.jwt.JwtUtil;
@@ -30,7 +30,7 @@ public class UserController {
     private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
-    public ResponseEntity<TodosResponseDTO> signupUser(
+    public ResponseEntity<TodoTaskResponseDTO> signupUser(
             @Valid @RequestBody SignupRequestDTO signupRequestDto, BindingResult bindingResult) {
 
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -43,11 +43,11 @@ public class UserController {
         userService.signupUser(signupRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED.value())
-                .body(new TodosResponseDTO("회원가입 성공", HttpStatus.CREATED.value()));
+                .body(new TodoTaskResponseDTO("회원가입 성공", HttpStatus.CREATED.value()));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TodosResponseDTO> loginUser(
+    public ResponseEntity<TodoTaskResponseDTO> loginUser(
             @RequestBody LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
 
         userService.loginUser(loginRequestDTO);
@@ -58,12 +58,6 @@ public class UserController {
         String token = jwtUtil.createToken(username, role);
         response.setHeader(JwtUtil.AUTHORIZATION_HEADER, token);
 
-        return ResponseEntity.ok().body(new TodosResponseDTO("로그인 성공", HttpStatus.OK.value()));
-    }
-
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodosResponseDTO> handleUserIllegalArgumentException(IllegalArgumentException e) {
-        TodosResponseDTO responseDTO = new TodosResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+        return ResponseEntity.ok().body(new TodoTaskResponseDTO("로그인 성공", HttpStatus.OK.value()));
     }
 }
