@@ -53,5 +53,4 @@ class TodoRepositoryTest implements TodoTest {
         assertThat(resultTodoList.get(1)).isEqualTo(testTodo2);
         assertThat(resultTodoList.get(2)).isEqualTo(testTodo1);
     }
-
 }

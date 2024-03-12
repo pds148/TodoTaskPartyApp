@@ -4,7 +4,7 @@ import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.Todo;
 
-public interface TodoTest extends TodosTest {
+public interface TodoTest extends TodoTaskTest {
 
     Long TEST_TODO_ID = 1L;
     String TEST_TODO_TITLE = "title";
