@@ -4,7 +4,7 @@ import com.sparta.todotaskpartyapp.dto.request.CommentRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.CommentResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodosResponseDTO;
 import com.sparta.todotaskpartyapp.security.UserDetailsImpl;
-import com.sparta.todotaskpartyapp.service.CommentServiceImpl;
+import com.sparta.todotaskpartyapp.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class CommentController {
 
-    private final CommentServiceImpl commentService;
+    private final CommentService commentService;
 
     @PostMapping
     public ResponseEntity<CommentResponseDTO> postComment(@RequestBody CommentRequestDTO commentRequestDTO, @AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -37,11 +37,9 @@ public class CommentController {
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodosResponseDTO> handleIllegalArgumentException(IllegalArgumentException e) {
+    public ResponseEntity<TodosResponseDTO> handleCommentIllegalArgumentException(IllegalArgumentException e) {
         TodosResponseDTO responseDTO = new TodosResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(
-                responseDTO,
-                HttpStatus.BAD_REQUEST
-        );
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 }
+

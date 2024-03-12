@@ -4,7 +4,7 @@ import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.security.UserDetailsImpl;
-import com.sparta.todotaskpartyapp.service.TodoServiceImpl;
+import com.sparta.todotaskpartyapp.service.TodoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 @RestControllerAdvice
 public class TodoController {
 
-    private final TodoServiceImpl todoService;
+    private final TodoService todoService;
 
     @PostMapping
     public ResponseEntity<TodoResponseDTO> addTodo(
@@ -67,12 +67,9 @@ public class TodoController {
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodoResponseDTO> handleIllegalArgumentException(IllegalArgumentException e) {
+    public ResponseEntity<TodoResponseDTO> handleTodoIllegalArgumentException(IllegalArgumentException e) {
         TodoResponseDTO responseDTO = new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(
-                responseDTO,
-                HttpStatus.BAD_REQUEST
-        );
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 }
 

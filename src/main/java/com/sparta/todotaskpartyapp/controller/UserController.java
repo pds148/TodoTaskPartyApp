@@ -6,7 +6,7 @@ import com.sparta.todotaskpartyapp.dto.response.TodosResponseDTO;
 import com.sparta.todotaskpartyapp.entity.User;
 import com.sparta.todotaskpartyapp.entity.UserRole;
 import com.sparta.todotaskpartyapp.jwt.JwtUtil;
-import com.sparta.todotaskpartyapp.service.UserServiceImpl;
+import com.sparta.todotaskpartyapp.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -26,11 +26,11 @@ import java.util.List;
 @RestControllerAdvice
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
-    public ResponseEntity<TodosResponseDTO> postSignup(
+    public ResponseEntity<TodosResponseDTO> signupUser(
             @Valid @RequestBody SignupRequestDTO signupRequestDto, BindingResult bindingResult) {
 
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TodosResponseDTO> postLogin(
+    public ResponseEntity<TodosResponseDTO> loginUser(
             @RequestBody LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
 
         userService.loginUser(loginRequestDTO);
@@ -62,12 +62,8 @@ public class UserController {
     }
 
     @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodosResponseDTO> handleIllegalArgumentException(IllegalArgumentException e) {
+    public ResponseEntity<TodosResponseDTO> handleUserIllegalArgumentException(IllegalArgumentException e) {
         TodosResponseDTO responseDTO = new TodosResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(
-                responseDTO,
-                HttpStatus.BAD_REQUEST
-        );
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 }
-
