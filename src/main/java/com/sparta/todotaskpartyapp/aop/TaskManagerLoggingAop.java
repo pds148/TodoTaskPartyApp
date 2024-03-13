@@ -22,23 +22,19 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class TaskManagerLoggingAspect {
+public class TaskManagerLoggingAop {
 
     private final TaskManagerLoggingRepository taskManagerLoggingRepository;
 
-    // UserController 메서드 호출 지점 정의
     @Pointcut("execution(* com.sparta.todotaskpartyapp.controller.UserController.*(..))")
     private void user() {}
 
-    // TaskController 메서드 호출 지점 정의
     @Pointcut("execution(* com.sparta.todotaskpartyapp.controller.TodoController.*(..))")
     private void todo() {}
 
-    // CommentController 메서드 호출 지점 정의
     @Pointcut("execution(* com.sparta.todotaskpartyapp.controller.CommentController.*(..))")
     private void comment() {}
 
-    // 각 컨트롤러 메서드 실행 전후 로깅
     @Around("user() || todo() || comment()")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
