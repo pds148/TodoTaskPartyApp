@@ -42,7 +42,7 @@ public class TodoServiceImpl implements TodoService {
 
         return userTodoMap.entrySet().stream()
                 .map(entry -> new TodoListResponseDTO(entry.getKey(), entry.getValue()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
