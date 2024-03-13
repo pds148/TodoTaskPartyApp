@@ -65,11 +65,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateUsernameAndPassword(String username, String password) {
-        if (username.length() < 4 || username.length() > 10 || !username.matches("^[a-z0-9]+$")) {
+        if (username.length() < 4 || username.length() > 10 || !username.matches("^[a-z0-9]{4,10}$")) {
             throw new IllegalArgumentException("username은 최소 4자 이상, 10자 이하이며 알파벳 소문자(a~z), 숫자(0~9)로 이루어져야 합니다.");
         }
 
-        if (password.length() < 8 || password.length() > 15 || !password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]+$")) {
+        if (password.length() < 8 || password.length() > 15 || !password.matches("^[a-zA-Z0-9]{8,15}$")) {
             throw new IllegalArgumentException("password는 최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9)로 이루어져야 합니다.");
         }
     }
