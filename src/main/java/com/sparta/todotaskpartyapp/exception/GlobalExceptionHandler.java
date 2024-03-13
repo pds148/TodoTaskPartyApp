@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodoTaskResponseDTO> handleUserIllegalArgumentException(IllegalArgumentException e) {
+    @ExceptionHandler({UserNotFoundException.class})
+    public ResponseEntity<TodoTaskResponseDTO> handleUserIllegalArgumentException(UserNotFoundException e) {
         TodoTaskResponseDTO responseDTO = new TodoTaskResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }

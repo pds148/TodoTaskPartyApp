@@ -6,6 +6,7 @@ import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.Todo;
 import com.sparta.todotaskpartyapp.entity.User;
+import com.sparta.todotaskpartyapp.exception.TodoNotFoundException;
 import com.sparta.todotaskpartyapp.repository.TodoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -70,13 +71,13 @@ public class TodoServiceImpl implements TodoService {
 
     public Todo getTodoById(Long todoId) {
         return todoRepository.findById(todoId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 할일 ID입니다."));
+                .orElseThrow(() -> new TodoNotFoundException("존재하지 않는 할일 ID입니다."));
     }
 
     public Todo getUserTodoById(Long todoId, User user) {
         Todo todo = getTodoById(todoId);
         if (!user.getId().equals(todo.getUser().getId())) {
-            throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
+            throw new TodoNotFoundException("작성자만 수정할 수 있습니다.");
         }
         return todo;
     }
