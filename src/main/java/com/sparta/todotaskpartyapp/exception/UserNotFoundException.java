@@ -20,4 +20,8 @@ public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Throwable status) {
         super(status);
     }
+
+    public UserNotFoundException(String message, Throwable status, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, status, enableSuppression, writableStackTrace);
+    }
 }

@@ -16,14 +16,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodoResponseDTO> handleTodoIllegalArgumentException(IllegalArgumentException e) {
+    @ExceptionHandler({TodoNotFoundException.class})
+    public ResponseEntity<TodoResponseDTO> handleTodoIllegalArgumentException(TodoNotFoundException e) {
         TodoResponseDTO responseDTO = new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<TodoTaskResponseDTO> handleCommentIllegalArgumentException(IllegalArgumentException e) {
+    @ExceptionHandler({CommentNotFoundException.class})
+    public ResponseEntity<TodoTaskResponseDTO> handleCommentIllegalArgumentException(CommentNotFoundException e) {
         TodoTaskResponseDTO responseDTO = new TodoTaskResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
