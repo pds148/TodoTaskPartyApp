@@ -26,9 +26,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private List<Thread> threads;
-
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRole role;

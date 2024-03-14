@@ -33,10 +33,6 @@ public class Comment {
     @Column
     private LocalDateTime createDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "thread_id")
-    private Thread thread;
-
     public Comment(CommentRequestDTO dto) {
         this.commentContent = dto.getCommentContent();
         this.createDate = LocalDateTime.now();
