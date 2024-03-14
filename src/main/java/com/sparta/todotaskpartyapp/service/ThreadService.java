@@ -1,9 +1,10 @@
 package com.sparta.todotaskpartyapp.service;
 
 import com.sparta.todotaskpartyapp.dto.response.ThreadResponseDTO;
+import com.sparta.todotaskpartyapp.entity.Thread;
 
 import java.util.List;
 
 public interface ThreadService {
-    List<ThreadResponseDTO> searchThreads(ThreadResponseDTO searchDTO);
+    List<Thread> searchThreads(ThreadResponseDTO searchDTO);
 }

@@ -1,7 +1,7 @@
 package com.sparta.todotaskpartyapp.service;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.todotaskpartyapp.dto.response.ThreadResponseDTO;
+import com.sparta.todotaskpartyapp.entity.Thread;
 import com.sparta.todotaskpartyapp.repository.ThreadRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class ThreadServiceImpl implements ThreadService {
 
     private final ThreadRepository threadRepository;
 
-    public List<ThreadResponseDTO> searchThreads(ThreadResponseDTO searchDTO) {
+    public List<Thread> searchThreads(ThreadResponseDTO searchDTO) {
         return threadRepository.search(searchDTO);
     }
 }
