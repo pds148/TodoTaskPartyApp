@@ -20,6 +20,7 @@ public class Thread {
     @Column(nullable = false, length = 500)
     private String content;
 
+    @Getter
     @Column
     private LocalDateTime createdAt;
 
@@ -38,7 +39,7 @@ public class Thread {
         this.user = user;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createdAt;
+    public String getUsername() {
+        return user.getUsername();
     }
 }
