@@ -15,6 +15,8 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
+    querydsl.extendsFrom compileClasspath // 쿼리 DSL 의존성을 쿼리 DSL 구성으로 확장합니다.
 }
 
 repositories {
@@ -31,6 +33,13 @@ dependencies {
     // json
     implementation 'org.json:json:20230227'
 
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-apt'
+
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
     testRuntimeOnly 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -49,3 +58,4 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
