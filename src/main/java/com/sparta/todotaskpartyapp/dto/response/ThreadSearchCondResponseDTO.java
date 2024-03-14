@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ThreadSearchResponseDTO {
+public class ThreadSearchCondResponseDTO {
     private Long id;
     private String content;
     private String createdAt;
     private String username;
 
-    public ThreadSearchResponseDTO(Thread thread) {
+    public ThreadSearchCondResponseDTO(Thread thread) {
         this.id = thread.getId();
         this.content = thread.getContent();
         this.username = thread.getUsername();
