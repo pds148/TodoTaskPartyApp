@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Builder
-public class TodosResponseDTO {
+public class TodoTaskResponseDTO {
 
     private String message;
     private Integer statusCode;

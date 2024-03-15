@@ -6,16 +6,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
 
 import com.sparta.todotaskpartyapp.controller.TodoController;
 import com.sparta.todotaskpartyapp.dto.request.TodoRequestDTO;
-import com.sparta.todotaskpartyapp.dto.request.UserDTO;
+import com.sparta.todotaskpartyapp.dto.request.UserRequestDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoListResponseDTO;
 import com.sparta.todotaskpartyapp.dto.response.TodoResponseDTO;
 import com.sparta.todotaskpartyapp.entity.User;
-import com.sparta.todotaskpartyapp.service.TodoService;
+import com.sparta.todotaskpartyapp.service.TodoServiceImpl;
 import com.sparta.todotaskpartyapp.test.ControllerTest;
 import com.sparta.todotaskpartyapp.test.TodoTest;
 import com.sparta.todotaskpartyapp.test.TodoTestUtils;
@@ -23,18 +22,18 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@WebMvcTest(TodoController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class TodoControllerTest extends ControllerTest implements TodoTest {
 
     @MockBean
-    private TodoService todoService;
+    private TodoServiceImpl todoService;
 
     @DisplayName("할일 생성 요청")
     @Test
@@ -98,9 +97,9 @@ class TodoControllerTest extends ControllerTest implements TodoTest {
         var testAnotherTodo = TodoTestUtils.get(TEST_TODO, 3L, LocalDateTime.now(), TEST_ANOTHER_USER);
 
         given(todoService.getUserTodoList()).willReturn(
-                List.of(new TodoListResponseDTO(new UserDTO(TEST_USER),
+                List.of(new TodoListResponseDTO(new UserRequestDTO(TEST_USER),
                                 List.of(new TodoResponseDTO(testTodo1), new TodoResponseDTO(testTodo2))),
-                        new TodoListResponseDTO(new UserDTO(TEST_ANOTHER_USER),
+                        new TodoListResponseDTO(new UserRequestDTO(TEST_ANOTHER_USER),
                                 List.of(new TodoResponseDTO(testAnotherTodo)))));
 
         // when

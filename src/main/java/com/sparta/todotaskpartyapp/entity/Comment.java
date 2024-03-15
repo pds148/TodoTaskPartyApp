@@ -30,6 +30,10 @@ public class Comment {
     @JoinColumn(name = "todo_id", nullable = false)
     private Todo todo;
 
+    @ManyToOne
+    @JoinColumn(name = "thread_id")
+    private Thread thread;
+
     @Column
     private LocalDateTime createDate;
 

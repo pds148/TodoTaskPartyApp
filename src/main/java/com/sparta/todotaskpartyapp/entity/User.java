@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,7 +26,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Getter
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRole role;

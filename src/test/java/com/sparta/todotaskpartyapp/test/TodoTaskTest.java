@@ -2,7 +2,7 @@ package com.sparta.todotaskpartyapp.test;
 
 import com.sparta.todotaskpartyapp.entity.User;
 
-public interface TodosTest {
+public interface TodoTaskTest {
     String ANOTHER_PREFIX = "another-";
     Long TEST_USER_ID = 1L;
     Long TEST_ANOTHER_USER_ID = 2L;

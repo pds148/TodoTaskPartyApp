@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.time.LocalDateTime;
 
+import com.sparta.todotaskpartyapp.config.JpaConfig;
 import com.sparta.todotaskpartyapp.repository.TodoRepository;
 import com.sparta.todotaskpartyapp.repository.UserRepository;
 import com.sparta.todotaskpartyapp.test.TodoTest;
@@ -14,13 +15,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
+@Import(JpaConfig.class)
+@Rollback(value = false)
 class TodoRepositoryTest implements TodoTest {
 
     @Autowired
@@ -53,5 +58,4 @@ class TodoRepositoryTest implements TodoTest {
         assertThat(resultTodoList.get(1)).isEqualTo(testTodo2);
         assertThat(resultTodoList.get(2)).isEqualTo(testTodo1);
     }
-
 }

@@ -14,7 +14,7 @@ public class SignupRequestDTO {
     @NotBlank
     private String username;
 
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]+$")
+    @Pattern(regexp = "^[a-zA-Z0-9]{8,15}$")
     @NotBlank
     private String password;
 

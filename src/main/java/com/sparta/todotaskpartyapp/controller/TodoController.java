@@ -30,12 +30,8 @@ public class TodoController {
 
     @GetMapping("/{todoId}")
     public ResponseEntity<TodoResponseDTO> getTodoDetails(@PathVariable Long todoId) {
-        try {
-            TodoResponseDTO responseDTO = todoService.getTodoDetails(todoId);
-            return ResponseEntity.ok().body(responseDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        TodoResponseDTO responseDTO = todoService.getTodoDetails(todoId);
+        return ResponseEntity.ok().body(responseDTO);
     }
 
     @GetMapping
@@ -49,36 +45,24 @@ public class TodoController {
             @PathVariable Long todoId,
             @RequestBody TodoRequestDTO todoRequestDTO,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            TodoResponseDTO responseDTO = todoService.updateTodo(todoId, todoRequestDTO, userDetails.getUser());
-            return ResponseEntity.ok(responseDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        TodoResponseDTO responseDTO = todoService.updateTodo(todoId, todoRequestDTO, userDetails.getUser());
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PatchMapping("/{todoId}/complete")
     public ResponseEntity<TodoResponseDTO> completeTodo(
             @PathVariable Long todoId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            TodoResponseDTO responseDTO = todoService.completeTodo(todoId, userDetails.getUser());
-            return ResponseEntity.ok(responseDTO);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new TodoResponseDTO(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
+        TodoResponseDTO responseDTO = todoService.completeTodo(todoId, userDetails.getUser());
+        return ResponseEntity.ok(responseDTO);
     }
 
     @DeleteMapping("/{todoId}")
-    public ResponseEntity<String> deleteTodo(
+    public ResponseEntity<TodoResponseDTO> deleteTodo(
             @PathVariable Long todoId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        try {
-            todoService.deleteTodo(todoId, userDetails.getUser());
-            return ResponseEntity.ok("할일이 삭제되었습니다.");
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
-        }
+        todoService.deleteTodo(todoId, userDetails.getUser());
+        return ResponseEntity.ok().body(new TodoResponseDTO("할일이 삭제되었습니다.", HttpStatus.OK.value()));
     }
 }
 
