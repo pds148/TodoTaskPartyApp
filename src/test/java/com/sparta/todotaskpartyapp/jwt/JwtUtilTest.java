@@ -4,6 +4,7 @@ import static com.sparta.todotaskpartyapp.jwt.JwtUtil.BEARER_PREFIX;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import com.sparta.todotaskpartyapp.TodoTaskPartyAppApplication;
 import com.sparta.todotaskpartyapp.entity.UserRole;
 import com.sparta.todotaskpartyapp.test.TodoTaskTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,7 @@ class JwtUtilTest implements TodoTaskTest {
 
     @BeforeEach
     void setUp() {
+        jwtUtil = new JwtUtil();
         jwtUtil.init();
     }
 

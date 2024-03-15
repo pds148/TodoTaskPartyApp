@@ -44,6 +44,9 @@ public class Todo extends Timestamped implements Serializable {
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "todo")
+    private List<Thread> threads;
+
+    @OneToMany(mappedBy = "todo")
     private List<TodoComment> todoCommentList = new ArrayList<>();
 
     @Builder

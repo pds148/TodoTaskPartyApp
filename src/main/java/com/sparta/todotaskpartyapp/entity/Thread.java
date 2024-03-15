@@ -29,7 +29,7 @@ public class Thread {
     @OneToMany(mappedBy = "thread")
     private List<Todo> todos;
 
-    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "thread")
     private List<Comment> comments;
 
     public void setId(Long id) {
